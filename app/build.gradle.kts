@@ -50,5 +50,6 @@ dependencies {
     // For control over item selection of both touch and mouse driven selection
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
 }

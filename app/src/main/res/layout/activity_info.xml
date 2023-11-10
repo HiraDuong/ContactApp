@@ -83,12 +83,7 @@
             android:textSize="24dp"
             />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/info_tv"
-            android:layout_marginTop="10dp"
-            />
+
 
     </LinearLayout>
 
