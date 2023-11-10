@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/subblack"
+    app:cardCornerRadius="20dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,14 +23,13 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Name"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:layout_toEndOf="@id/avt_user"
-            android:textSize="24dp"
-            android:layout_marginLeft="20dp"/>
+            android:text="User Name"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
     </RelativeLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>

@@ -99,24 +99,49 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
+
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        val position = info.position
+        val seletedItem = userItems[position]
         return when (item.itemId) {
             R.id.menu_send_email -> {
-                Log.v("TAG", "Send a email ${item.itemId}")
+
+                val intent = Intent(Intent.ACTION_SEND).apply {
+
+                    type = "text/plain"
+                    if (seletedItem != null) {
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf(seletedItem.email))
+                    }
+                    putExtra(Intent.EXTRA_SUBJECT, "Email subject")
+                    putExtra(Intent.EXTRA_TEXT, "Email message text")
+                }
+
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                    Log.v("TAG", "Send a email ${position.toString()}")
+                } else {
+                    Log.v("TAG", "No email app found!")
+                }
 
                 true
             }
 
             R.id.menu_sms -> {
-                Log.v("TAG", "Send a SMS  ${item.itemId}")
+
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("sms:${seletedItem?.phone}"))
+                    intent.putExtra("sms_body", "Bé Dương, I love you chùn chụt")
+                    startActivity(intent)
+
+                Log.v("TAG", "Send a SMS  ${position.toString()}")
                 true
             }
 
             R.id.menu_call -> {
-                Log.v("TAG", "Call someone  ${item.itemId}")
-                val callIntent: Intent = Uri.parse("tel:5551234").let { number ->
+                Log.v("TAG", "Call someone  ${position.toString()}")
+                val callIntent: Intent = Uri.parse("tel:${seletedItem?.phone}").let { number ->
                     Intent(Intent.ACTION_DIAL, number)
                 }
+                startActivity(callIntent)
                 true
             }
 
@@ -172,4 +197,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    // Option Menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
 }

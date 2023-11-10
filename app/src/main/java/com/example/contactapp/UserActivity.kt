@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Message
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
-import listview.UserItem
+
 
 class UserActivity : AppCompatActivity() {
     lateinit var avtImage :ImageView
@@ -68,21 +69,12 @@ class UserActivity : AppCompatActivity() {
         }
 
         messButton.setOnClickListener {
-            val phoneNumber = "0123456789" // Số điện thoại đích
-            val message = "Hello, this is a message!" // Nội dung tin nhắn
-
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("smsto:$phoneNumber") // Gửi đến số điện thoại cụ thể
-
-
-            intent.putExtra("sms_body", message)
-
-
-            if (intent.resolveActivity(packageManager) != null) {
+            try {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("sms:${phone}"))
+                intent.putExtra("sms_body", "Bé Dương, I love you chùn chụt")
                 startActivity(intent)
-            } else {
-                // Xử lý khi không có ứng dụng nào có thể xử lý Intent
-                Toast.makeText(this, "No messaging app found", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Log.v("TAG","SMS action failed")
             }
 
             Log.v("TAG","SMS action done! ")
@@ -91,27 +83,30 @@ class UserActivity : AppCompatActivity() {
 
         emailButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND).apply {
-                // The intent does not have a URI, so declare the "text/plain" MIME type
+
                 type = "text/plain"
-                putExtra(Intent.EXTRA_EMAIL, arrayOf("recipient@example.com")) // Thay thế "recipient@example.com" bằng địa chỉ email thực tế
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
                 putExtra(Intent.EXTRA_SUBJECT, "Email subject")
                 putExtra(Intent.EXTRA_TEXT, "Email message text")
-                putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"))
-                // Bạn cũng có thể đính kèm nhiều tệp bằng cách truyền một ArrayList của Uri
             }
 
-            // Kiểm tra xem có ứng dụng nào có thể xử lý Intent không
             if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent)
                 Log.v("TAG", "Send Email action done!")
             } else {
-                Log.e("TAG", "No email app found!")
-                // Xử lý khi không có ứng dụng email nào được tìm thấy
+                Log.v("TAG", "No email app found!")
             }
-
-            Log.v("TAG","Send Email action done! ")
 
         }
 
+    }
+
+
+    // Main menu 2
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu_2, menu)
+        return true
     }
 }

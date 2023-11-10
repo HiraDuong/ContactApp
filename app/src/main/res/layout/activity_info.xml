@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,10 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Vũ Huy Hoàng"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageButton
         android:id="@+id/call_btn"
@@ -35,7 +39,7 @@
         android:contentDescription="@string/call"
         android:src="@drawable/call"
         android:background="@drawable/round_style"
-        android:padding="10dp"
+        android:padding="20dp"
         app:layout_constraintEnd_toStartOf="@+id/mess_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_tv" />
@@ -48,7 +52,7 @@
         android:contentDescription="@string/mess"
         android:src="@drawable/mess"
         android:background="@drawable/round_style"
-        android:padding="10dp"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_tv" />
@@ -61,7 +65,7 @@
         android:contentDescription="@string/email"
         android:src="@drawable/email"
         android:background="@drawable/round_style"
-        android:padding="10dp"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mess_btn"
         app:layout_constraintTop_toBottomOf="@+id/name_tv" />
@@ -70,30 +74,38 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_corner"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/mess_btn"
-        android:layout_margin="10dp">
+        tools:layout_editor_absoluteX="10dp"
+        >
 
         <TextView
             android:id="@+id/info_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="Contact Address"
             android:layout_marginTop="20dp"
-            android:textSize="24dp"
-            />
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:text="Contact Address"
+            android:textSize="24dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
+                android:textStyle="bold"
+                android:textSize="16dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="ID :"
-                android:textColor="#0052FF" />
+
+                android:drawableLeft="@drawable/id"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:id="@+id/id_info"
@@ -101,8 +113,10 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="ID :"
-                android:textColor="#9C27B0"
-                android:textColorHighlight="#4671FF00" />
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                 />
 
         </LinearLayout>
 
@@ -112,21 +126,27 @@
             android:orientation="horizontal">
 
             <TextView
+                android:textStyle="bold"
+                android:textSize="16dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Phone Number :"
+                android:layout_marginLeft="10dp"
 
-                android:textColor="#0052FF" />
+                android:drawableLeft="@drawable/call"
+
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/phone_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
                 android:text="Phone Number :"
-                android:textColor="#9C27B0"
-                android:textColorHighlight="#4671FF00" />
+                android:textColor="@color/white"
+                />
 
 
         </LinearLayout>
@@ -134,24 +154,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
 
             <TextView
 
+                android:textStyle="bold"
+                android:textSize="16dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Email :"
-                android:textColor="#0052FF" />
+                android:layout_marginLeft="10dp"
+
+                android:drawableLeft="@drawable/email"
+
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/email_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
                 android:text="Email :"
-                android:textColor="#9C27B0"
-                android:textColorHighlight="#4671FF00" />
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
     </LinearLayout>
@@ -163,3 +191,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
