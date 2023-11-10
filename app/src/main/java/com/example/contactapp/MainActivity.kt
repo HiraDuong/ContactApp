@@ -1,5 +1,7 @@
 package com.example.contactapp
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +19,7 @@ import listview.UserItem
 
 class MainActivity : AppCompatActivity() {
     var actionMode: ActionMode? = null
-    private var userItems = arrayListOf<UserItem?>()
+    var userItems = arrayListOf<UserItem?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,37 +28,54 @@ class MainActivity : AppCompatActivity() {
 
         //test with list view ok but don't work with recycler view? ?
 
+
         val listView = findViewById<ListView>(R.id.list_view)
         listView.adapter = ListAdapter(this, userItems)
         addUser()
         // Context menu
         registerForContextMenu(listView)
+        // item Click Listener
 
 
+        val intent = Intent(this, UserActivity::class.java)
+
+        listView.setOnItemClickListener{parent, view, position, id ->
+            val selectedItem = userItems[position]
+            intent.putExtra("id",selectedItem?.id)
+            intent.putExtra("name",selectedItem?.name)
+            intent.putExtra("avt",selectedItem?.avt)
+            intent.putExtra("phone",selectedItem?.phone)
+            intent.putExtra("email",selectedItem?.email)
+
+            startActivity(intent)
+        }
     }
     private fun addUser(){
         val newUsers = listOf(
-            UserItem("User", R.drawable.avt),
-            UserItem("User 1", R.drawable.avt1),
-            UserItem("User 2", R.drawable.avt2),
-            UserItem("User 3", R.drawable.avt3),
-            UserItem("User 4", R.drawable.avt4),
-            UserItem("User 5", R.drawable.avt5),
-            UserItem("User 6", R.drawable.avt6),
-            UserItem("User", R.drawable.avt),
-            UserItem("User 1", R.drawable.avt1),
-            UserItem("User 2", R.drawable.avt2),
-            UserItem("User 3", R.drawable.avt3),
-            UserItem("User 4", R.drawable.avt4),
-            UserItem("User 5", R.drawable.avt5),
-            UserItem("User 6", R.drawable.avt6),
-            UserItem("User", R.drawable.avt),
-            UserItem("User 1", R.drawable.avt1),
-            UserItem("User 2", R.drawable.avt2),
-            UserItem("User 3", R.drawable.avt3),
-            UserItem("User 4", R.drawable.avt4),
-            UserItem("User 5", R.drawable.avt5),
-            UserItem("User 6", R.drawable.avt6),
+            UserItem("User 0", R.drawable.avt,"0000000","hira0@gmail.com","00123456789"),
+            UserItem("User 1", R.drawable.avt1,"0000001","hira1@gmail.com","01234567890"),
+            UserItem("User 2", R.drawable.avt2,"0000002","hira2@gmail.com","02345678901"),
+            UserItem("User 3", R.drawable.avt3,"0000003","hira3@gmail.com","03456789012"),
+            UserItem("User 4", R.drawable.avt4,"0000004","hira4@gmail.com","04567890123"),
+            UserItem("User 5", R.drawable.avt5,"0000005","hira5@gmail.com","05678901234"),
+            UserItem("User 6", R.drawable.avt6,"0000006","hira6@gmail.com","06789012345"),
+
+            UserItem("User 01", R.drawable.avt,"0000007","hira00@gmail.com","10123456789"),
+            UserItem("User 11", R.drawable.avt1,"0000008","hira11@gmail.com","11234567890"),
+            UserItem("User 22", R.drawable.avt2,"0000009","hira22@gmail.com","22345678901"),
+            UserItem("User 33", R.drawable.avt3,"1000001","hira33@gmail.com","33456789012"),
+            UserItem("User 44", R.drawable.avt4,"1000002","hira44@gmail.com","44567890123"),
+            UserItem("User 55", R.drawable.avt5,"1000003","hira55@gmail.com","55678901234"),
+            UserItem("User 66", R.drawable.avt6,"1000004","hira66@gmail.com","66789012345"),
+
+            UserItem("User 000", R.drawable.avt,"2000005","hira000@gmail.com","20123456789"),
+            UserItem("User 111", R.drawable.avt1,"2000006","hira111@gmail.com","21234567890"),
+            UserItem("User 222", R.drawable.avt2,"2000007","hira222@gmail.com","22345678901"),
+            UserItem("User 333", R.drawable.avt3,"2000008","hira333@gmail.com","33456789012"),
+            UserItem("User 444", R.drawable.avt4,"2000009","hira444@gmail.com","44567890123"),
+            UserItem("User 555", R.drawable.avt5,"3000001","hira555@gmail.com","55678901234"),
+            UserItem("User 666", R.drawable.avt6,"3000002","hira666@gmail.com","66789012345"),
+
 
 
         )
@@ -83,17 +102,21 @@ class MainActivity : AppCompatActivity() {
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.menu_send_email -> {
-                Log.v("TAG", "Send a email")
+                Log.v("TAG", "Send a email ${item.itemId}")
+
                 true
             }
 
             R.id.menu_sms -> {
-                Log.v("TAG", "Send a SMS")
+                Log.v("TAG", "Send a SMS  ${item.itemId}")
                 true
             }
 
             R.id.menu_call -> {
-                Log.v("TAG", "Call someone")
+                Log.v("TAG", "Call someone  ${item.itemId}")
+                val callIntent: Intent = Uri.parse("tel:5551234").let { number ->
+                    Intent(Intent.ACTION_DIAL, number)
+                }
                 true
             }
 
