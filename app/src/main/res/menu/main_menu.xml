@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-<item android:title="select" android:id="@+id/menu_select" android:icon="@drawable/select" app:showAsAction="always"/>
-    <item android:title="delete" android:id="@+id/menu_delete" android:icon="@drawable/delete" app:showAsAction="always"/>
-    <item android:title="add" android:id="@+id/menu_add" android:icon="@drawable/add" app:showAsAction="always"/>
-
+<item android:title="Select all" android:id="@+id/menu_select" android:icon="@drawable/select" app:showAsAction="never"/>
+    <item android:title="Delete" android:id="@+id/menu_delete" android:icon="@drawable/delete" app:showAsAction="never"/>
+    <item android:title="Add" android:id="@+id/menu_add" android:icon="@drawable/add" app:showAsAction="never"/>
+    <item android:title="search" android:id="@+id/menu_search"
+        android:icon="@drawable/search"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"/>
 </menu>

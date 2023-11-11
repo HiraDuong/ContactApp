@@ -29,6 +29,8 @@
             android:text="User Name"
             android:textColor="@color/white"
             android:textSize="24dp" />
+
+
     </RelativeLayout>
 
 

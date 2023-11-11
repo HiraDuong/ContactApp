@@ -1,5 +1,8 @@
 package com.example.contactapp
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -12,14 +15,22 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.SearchView
 import androidx.appcompat.view.ActionMode
 
 import listview.ListAdapter
 import listview.UserItem
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     var actionMode: ActionMode? = null
     var userItems = arrayListOf<UserItem?>()
+
+    lateinit var listView: ListView
+    lateinit var listAdapter: ListAdapter
+
+    lateinit var searchView: SearchView
+    lateinit var searchList : ArrayList<UserItem>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,8 +40,9 @@ class MainActivity : AppCompatActivity() {
         //test with list view ok but don't work with recycler view? ?
 
 
-        val listView = findViewById<ListView>(R.id.list_view)
-        listView.adapter = ListAdapter(this, userItems)
+        listView = findViewById<ListView>(R.id.list_view)
+        listAdapter = ListAdapter(this, userItems)
+        listView.adapter = listAdapter
         addUser()
         // Context menu
         registerForContextMenu(listView)
@@ -202,6 +214,50 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
+
+        // search
+        val search = menu.findItem(R.id.menu_search)
+        searchView = search?.actionView as SearchView
+        searchList = arrayListOf<UserItem>()
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("TAG","query change")
+                listAdapter.filter.filter(newText)
+                return true
+
+
+            }
+
+        })
+
+
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_select -> {
+                Log.v("TAG","Select Clicked")
+                true
+            }
+            R.id.menu_delete -> {
+                Log.v("TAG","Delete Clicked")
+                true
+            }
+            R.id.menu_add -> {
+                Log.v("TAG","Add Clicked")
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }

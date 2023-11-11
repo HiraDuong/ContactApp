@@ -3,5 +3,5 @@
     <string name="call">Call</string>
     <string name="mess">SMS</string>
     <string name="email">Email</string>
-
+    <string name="search_hint">Search Hint</string>
 </resources>
